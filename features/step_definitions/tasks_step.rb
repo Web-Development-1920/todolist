@@ -1,6 +1,5 @@
-Given("I go to {string}") do |newTask_url|
-	get newTask_url
-	assert_response :success
+Given("I go to {string}") do |url|
+	get url
 end
 
 When("I POST the following data to {string}:") do |post_url, table|
@@ -8,7 +7,6 @@ When("I POST the following data to {string}:") do |post_url, table|
 	post post_url, params:table
 	assert_response :redirect
 	follow_redirect!
-	assert_response :success
 end
   
 Then("The following task exists:") do |table|
