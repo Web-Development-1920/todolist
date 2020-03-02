@@ -1,6 +1,4 @@
-Given("I go to {string}") do |url|
-	get url
-end
+
 
 When("I POST the following data to {string}:") do |post_url, table|
 	# table is a Cucumber::MultilineArgument::DataTable
@@ -13,3 +11,22 @@ Then("The following task exists:") do |table|
 	# table is a Cucumber::MultilineArgument::DataTable
 	assert (Task.where(table))
 end
+
+#########################################################################################
+# En desarrollo
+# #######################################################################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
