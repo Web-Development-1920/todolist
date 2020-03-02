@@ -3,12 +3,13 @@
 ###########################
 
 Given("I go to {string}") do |path|
-  get path
+  visit path
   expect(page.status_code).to be(200)
 end
 
 Then("I am on {string}") do |path|
   expect(page).to have_current_path(path)
+
 end
 
 

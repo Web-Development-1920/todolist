@@ -58,3 +58,10 @@ end
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
+# Your original Capybara setup
+Capybara.javascript_driver = :poltergeist
+
+# New server settings
+Capybara.app_host = 'http://localhost:3002'
+Capybara.server_host = 'localhost'
+Capybara.server_port = '3002'
