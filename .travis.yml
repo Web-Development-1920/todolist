@@ -2,5 +2,6 @@ language: ruby
 rvm:
 - 2.7.0
 script:
+        - bundle install
         - bundle exec rake db:migrate RAILS_ENV=test
-        - bundle exec cucumber
+        - bundle exec rake cucumber

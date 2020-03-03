@@ -1,5 +1,7 @@
 # README
 
+[![Build Status](https://travis-ci.org/Web-Development-1920/todolist.svg?branch=milestone-1)](https://travis-ci.org/Web-Development-1920/todolist)
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
