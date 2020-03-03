@@ -32,8 +32,7 @@ Feature: Task
 	## Read Task
 
 	Scenario: Read One Existing Task
-		Given I create a "task"
-		And I am on "/tasks/1"
+		Given I go to "/tasks/1"
 
 		Then I see "Task1"
 		* I see "This is task1"
@@ -50,7 +49,7 @@ Feature: Task
 		And I create a "task" with the following data:
 			| name | description | priority | done |
 			| Task4 | This is task4 | High  | False |
-		And I am on "/tasks"
+		And I go to "/tasks"
 
 		Then I see "Task1"
 		* I see "Task2"
@@ -61,7 +60,7 @@ Feature: Task
 	## Update Task
 
 	Scenario: Update One Existing Task
-		Given I am on "/tasks/1/edit"
+		Given I go to "/tasks/1/edit"
 
 		When I fill "task[name]" with "Task1 edit"
 		And I fill "task[description]" with "This is task1 edit"
@@ -75,7 +74,7 @@ Feature: Task
 	## Delete
 
 	Scenario: Delete One Existing Task
-		Given I am on "/tasks/1"
+		Given I go to "/tasks/1"
 
 		When I click on "delete"
 		And I click on "yes"

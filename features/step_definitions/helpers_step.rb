@@ -44,19 +44,44 @@ Then("There is not {string} with {string} equal {string}") do |name, attribute, 
 end
 
 Then("The following {string} exists:") do |name, table|
-  data = table.raw
+  puts Task.find(2).to_json
+  # data = table.raw
   model = name.capitalize.constantize
 
   query = nil
+  table.map_headers! { |header| header.downcase }
+
+  data = table.hashes[0]
 
 
-  for i in 0..data.length
+  data.keys.each do |column|
+
+    if data[column].downcase == "true"
+      data[column] = TRUE
+    elsif data[column].downcase == "false"
+           data[column] = FALSE
+    end
+
     if query.nil?
-      query = model.where(data[0][i] => data[1][i])
+      query = model.where(column => data[column])
     else
-      query = query.where(data[0][i] => data[1][i])
+
+      query = query.where(column => data[column])
     end
   end
 
-  assert query.any?
+  expect(query.any?).to be(TRUE)
+
+end
+
+Given("I create a {string} with the following data:") do |name, table|
+  # table is a Cucumber::MultilineArgument::DataTable
+
+  table.map_headers! { |header| header.downcase }
+  model = name.capitalize.constantize
+
+  Task.create(table.hashes)
+
+
+
 end
