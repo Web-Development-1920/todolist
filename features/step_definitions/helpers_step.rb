@@ -50,7 +50,7 @@ Then("The following {string} exists:") do |name, table|
   query = nil
 
 
-  for i in data.length
+  for i in 0..data.length
     if query.nil?
       query = model.where(data[0][i] => data[1][i])
     else
