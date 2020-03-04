@@ -9,6 +9,10 @@ class TasksController < ApplicationController
 		redirect_to @task
 	end
 
+	def show
+		@task = Task.find(params[:id])
+	end
+
 	private
 		def task_params
 			params.require(:task).permit(:name, :description, :deadline, :priority)
