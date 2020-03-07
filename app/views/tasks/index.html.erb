@@ -1,0 +1,21 @@
+<h1>Existing Tasks</h1>
+ 
+<table>
+  <tr>
+    <th>Name</th>
+	<th>Description</th>
+	<th>Deadline</th>
+	<th>Priority</th>
+    <th></th>
+  </tr>
+ 
+  <% @tasks.each do |task| %>
+    <tr>
+      <td><%= task.name %></td>
+	  <td><%= task.description %></td>
+	  <td><%= task.deadline %></td>
+	  <td><%= task.priority %></td>
+      <td><%= link_to 'Show', task_path(task) %></td>
+    </tr>
+  <% end %>
+</table>
