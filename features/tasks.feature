@@ -65,7 +65,7 @@ Feature: Task
 		When I fill "task[name]" with "Task1 edit"
 		And I fill "task[description]" with "This is task1 edit"
 		And I choose "High" from "task[priority]" selection
-		And I click on "Save"
+		And I click on "Update"
 		Then I am on "/tasks/1"
 		And The following "task" exists:
 			| name | description | priority | done |
@@ -76,6 +76,6 @@ Feature: Task
 	Scenario: Delete One Existing Task
 		Given I go to "/tasks/1"
 
-		When I click on "delete"
-		And I click on "yes"
+		When I click on "Delete"
+		And I click on "Yes"
 		Then There is not "task" with "id" equal "1"
