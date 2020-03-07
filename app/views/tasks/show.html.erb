@@ -1,11 +1,11 @@
 <p>
-  <strong>Name:</strong>
-  <%= @task.name %>
+	<strong>Name:</strong>
+	<%= @task.name %>
 </p>
  
 <p>
-  <strong>Description:</strong>
-  <%= @task.description %>
+	<strong>Description:</strong>
+	<%= @task.description %>
 </p>
 
 <p>
@@ -22,3 +22,5 @@
 	<strong>Done:</strong>
 	<%= @task.done %>
 </p>
+
+<td><%= link_to 'Edit', edit_task_path(@task) %></td>
