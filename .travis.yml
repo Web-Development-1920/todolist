@@ -3,9 +3,5 @@ rvm:
 - 2.7.0
 script:
     - bundle install
-    - rm -rf node_modules
-    - rails assets:clobber
-    - yarn
-    - rails assets:precompile
     - bundle exec rake db:migrate RAILS_ENV=test
     - bundle exec rake cucumber
