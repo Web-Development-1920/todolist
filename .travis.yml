@@ -1,7 +1,10 @@
 language: ruby
 rvm:
 - 2.7.0
+
 script:
+    - export RUBYOPT='-W0'
+    - RAILS_ENV=test bundle exec rails webpacker:compile
     - bundle install
     - bundle exec rake db:migrate RAILS_ENV=test
     - bundle exec rake cucumber
