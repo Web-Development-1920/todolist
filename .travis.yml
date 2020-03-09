@@ -1,8 +1,13 @@
-language: ruby
-rvm:
-- 2.7.0
+language: node_js
+
 node_js:
     - 12.16.1
+
+before_install:
+    - pwd
+    - rvm install 2.7.0
+    - gem install bundler
+    - nvm install 12.16.1
 script:
     - export RUBYOPT='-W0'
     - bundle install
