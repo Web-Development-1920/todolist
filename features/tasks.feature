@@ -3,7 +3,7 @@ Feature: Task
 	Background:
 		Given I create a "task" with the following data:
 			| name | description | priority | done |
-			| Task1 | This is task1 | High  | False |
+			| Task1 | This is task1 | 1  | False |
 
 	## Create
 
@@ -13,20 +13,20 @@ Feature: Task
 		When I fill "task[name]" with "Task2"
 		And I fill "task[description]" with "This is task2"
 		And I choose "High" from "task[priority]" selection
-		And I click on "Save"
+		And I click on "Create"
 		Then I am on "/tasks/2"
 		And The following "task" exists:
 			| name | description | priority | done |
-			| Task2 | This is task2 | High  | False |
+			| Task2 | This is task2 | 1  | False |
 
 
 	Scenario: Create Task Failure
 		Given I go to "/tasks/new"
 
-		When I click on "Save"
-		Then I am on "/tasks/new"
-		And I see "Error message"
-		And There is not "task" with "id" equal "1"
+		When I click on "Create"
+		Then I am on "/tasks"
+		And I see "error prohibited this task from being saved"
+		And There is not "task" with "id" equal "2"
 
 
 	## Read Task
@@ -42,13 +42,13 @@ Feature: Task
 	Scenario: Read All Tasks
 		Given I create a "task" with the following data:
 			| name | description | priority | done |
-			| Task2 | This is task2 | High  | False |
+			| Task2 | This is task2 | 1  | False |
 		And I create a "task" with the following data:
 			| name | description | priority | done |
-			| Task3 | This is task3 | High  | False |
+			| Task3 | This is task3 | 1  | False |
 		And I create a "task" with the following data:
 			| name | description | priority | done |
-			| Task4 | This is task4 | High  | False |
+			| Task4 | This is task4 | 1  | False |
 		And I go to "/tasks"
 
 		Then I see "Task1"
@@ -69,7 +69,7 @@ Feature: Task
 		Then I am on "/tasks/1"
 		And The following "task" exists:
 			| name | description | priority | done |
-			| Task1 edit | This is task1 edit | High  | False |
+			| Task1 edit | This is task1 edit | 1  | False |
 
 	## Delete
 

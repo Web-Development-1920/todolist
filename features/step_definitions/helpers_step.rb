@@ -1,3 +1,8 @@
+class String
+  def numeric?
+    Float(self) != nil rescue false
+  end
+end
 ###########################
 # Routes
 ###########################
@@ -40,12 +45,12 @@ end
 Then("There is not {string} with {string} equal {string}") do |name, attribute, value|
   model = name.capitalize.constantize
   query = model.where(attribute => value)
-  assert model.empty?
+  puts query.to_json
+  expect(query.empty?).to be(TRUE)
 end
 
 Then("The following {string} exists:") do |name, table|
-  puts Task.find(2).to_json
-  # data = table.raw
+
   model = name.capitalize.constantize
 
   query = nil
@@ -62,6 +67,11 @@ Then("The following {string} exists:") do |name, table|
            data[column] = FALSE
     end
 
+
+    if data[column].to_s.numeric?
+      data[column] = data[column].to_i
+    end
+
     if query.nil?
       query = model.where(column => data[column])
     else
@@ -69,6 +79,7 @@ Then("The following {string} exists:") do |name, table|
       query = query.where(column => data[column])
     end
   end
+
 
   expect(query.any?).to be(TRUE)
 
@@ -80,8 +91,22 @@ Given("I create a {string} with the following data:") do |name, table|
   table.map_headers! { |header| header.downcase }
   model = name.capitalize.constantize
 
-  Task.create(table.hashes)
+  data = table.hashes[0]
 
 
+  data.keys.each do |column|
+    if data[column].downcase == "true"
+      data[column] = TRUE
+    elsif data[column].downcase == "false"
+      data[column] = FALSE
+    end
+
+
+    if data[column].to_s.numeric?
+      data[column] = data[column].to_i
+    end
+  end
+
+  model.create(table.hashes)
 
 end
