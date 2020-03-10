@@ -45,7 +45,7 @@ end
 Then("There is not {string} with {string} equal {string}") do |name, attribute, value|
   model = name.capitalize.constantize
   query = model.where(attribute => value)
-  puts query.to_json
+
   expect(query.empty?).to be(TRUE)
 end
 
