@@ -71,7 +71,7 @@ Feature: Projects
 
 	## Update Project
 
-  Scenario: Update One Existing Task
+  Scenario: Update One Existing Project
     Given I go to "/projects/1/edit"
 
     When I fill "project[name]" with "Project1 edit"

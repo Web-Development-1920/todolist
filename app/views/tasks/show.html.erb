@@ -15,12 +15,12 @@
 
 <p>
 	<strong>Priority:</strong>
-	<%= @task.priority %>
+	<%= priority_select(@task.priority) %>
 </p>
 
 <p>
 	<strong>Done:</strong>
-	<%= @task.done %>
+	<%= done_check(@task.done) %>
 </p>
 
 <td><%= link_to 'Edit', edit_task_path(@task) %></td>
