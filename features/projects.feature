@@ -36,7 +36,7 @@ Feature: Projects
 
     When I click on "Create"
     Then I am on "/projects"
-    And I see "error prohibited this project from being saved"
+    And I see "error prohibited this project from being created"
     And There is not "project" with "id" equal "2"
 
 
@@ -92,6 +92,6 @@ Feature: Projects
   Scenario: Delete One Existing Project
     Given I go to "/projects/1"
 
-    When I click on "Delete"
+    When I click on "Delete Project"
     And I click on "Yes"
     Then There is not "project" with "id" equal "1"
