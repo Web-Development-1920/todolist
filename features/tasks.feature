@@ -1,4 +1,4 @@
-Feature: Task
+Feature: Tasks
 
 	Background:
 		Given I create a "task" with the following data:
