@@ -81,6 +81,7 @@ Then("The following {string} exists:") do |name, table|
   end
 
 
+
   expect(query.any?).to be(TRUE)
 
 end

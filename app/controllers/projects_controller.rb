@@ -14,13 +14,21 @@ class ProjectsController < ApplicationController
 	end
 
 	def edit
+		@tasks = Task.all
 	end
 
 	def create
 		@project = Project.new(project_params)
+		@task = Task.find(task_params[:tasks])
+
+
 
 		if @project.save
-			redirect_to @project
+			@task.project_id = @project.id
+			if @task.save
+				redirect_to @project
+			end
+
 		else
 			# redirect_to new_project_path, :flash => {:error => @project.errors.full_messages.join(', ')}
 			@tasks = Task.all
@@ -29,6 +37,10 @@ class ProjectsController < ApplicationController
 	end
 
 	def update
+		@task = Task.find(task_params[:tasks])
+		@task.project_id = @project.id
+		@task.save
+
 		if @project.update(project_params)
 			redirect_to @project
 		else
@@ -43,17 +55,21 @@ class ProjectsController < ApplicationController
 	end
 
 	private
-		def find_project
-			begin
-				@project = Project.find(params[:id])
-			rescue StandardError => e
-				render json: {
+	def find_project
+		begin
+			@project = Project.find(params[:id])
+		rescue StandardError => e
+			render json: {
 					error: e.to_s
-				}
-			end
+			}
 		end
+	end
 
-		def project_params
-			params.require(:project).permit(:name, :description)
-		end
+	def project_params
+		params.require(:project).permit(:name, :description)
+	end
+
+	def task_params
+		params.require(:project).permit(:tasks)
+	end
 end

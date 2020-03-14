@@ -5,3 +5,5 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+tasks = Task.create([{name: 'Sprint 1', priority: 'High'}, {name: 'Sprint 2', priority: 'Medium'}, {name: 'Sprint 3', priority: 'Low'}])
+Project.create(name: 'Web Development Lab', description: 'Web Development Laboratory 2020. ToDo List application')

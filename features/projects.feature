@@ -29,7 +29,7 @@ Feature: Projects
       | Project2 | This is project2 |
     And The following "task" exists:
       | name  | project_id |
-      | Task3 | 1          |
+      | Task3 | 2          |
 
   Scenario: Create Project Failure
     Given I go to "/projects/new"

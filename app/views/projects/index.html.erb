@@ -12,8 +12,8 @@
 			<td><%= project.description %></td>
 
 			<h2>Tasks</h2>
-			<% if @project.tasks.any? %>
-			<% @project.tasks.each do |task| %>
+			<% if project.tasks.any? %>
+			<% project.tasks.each do |task| %>
 				<p>
 					<strong>Name:</strong>
 					<%= task.name %>
