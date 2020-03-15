@@ -1,59 +1,49 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Todolist</title>
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ToDo List</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
 
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
+
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Todolist</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" href="<%= todolist_index_path %>">ToDo List</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
-  </button>
+    </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="#">Home </a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="ProjectsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Projects
-        </a>
-        <div class="dropdown-menu" aria-labelledby="ProjectsDropdown">
-          <a class="dropdown-item" href="<%= projects_path %>">Projects List</a>
-          <a class="dropdown-item" href="<%= new_project_path %>">New Project</a>
-
-        </div>
-      </li>
-      <li class="nav-item dropdown active">
-        <a class="nav-link dropdown-toggle" href="#" id="TasksDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Tasks
-        </a>
-        <div class="dropdown-menu" aria-labelledby="TasksDropdown">
-          <a class="dropdown-item" href="<%= tasks_path %>">Tasks List</a>
-          <a class="dropdown-item" href="<%= new_task_path %>">New Task</a>
-
-        </div>
-      </li>
-
-    </ul>
-    <div class="my-2 my-lg-0">
-
-      <a href="#" class="btn btn-outline-success my-2 my-sm-0">Login</a>
-      <a href="#" class="btn btn-outline-success my-2 my-sm-0">Logout</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="ProjectsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Projects</a>
+                <div class="dropdown-menu" aria-labelledby="ProjectsDropdown">
+                    <a class="dropdown-item" href="<%= projects_path %>">Projects List</a>
+                    <a class="dropdown-item" href="<%= new_project_path %>">New Project</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown active">
+                <a class="nav-link dropdown-toggle" href="#" id="TasksDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tasks</a>
+                <div class="dropdown-menu" aria-labelledby="TasksDropdown">
+                    <a class="dropdown-item" href="<%= tasks_path %>">Tasks List</a>
+                    <a class="dropdown-item" href="<%= new_task_path %>">New Task</a>
+                </div>
+            </li>
+        </ul>
+        <!-- <div class="my-2 my-lg-0">
+            <a href="#" class="btn btn-outline-success my-2 my-sm-0">Login</a>
+            <a href="#" class="btn btn-outline-success my-2 my-sm-0">Logout</a>
+        </div> -->
     </div>
-  </div>
 </nav>
 <div class="container">
-  <%= yield %>
+    <%= yield %>
 </div>
 
 </body>
