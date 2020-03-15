@@ -13,35 +13,35 @@
 
 			<h2>Tasks</h2>
 			<% if project.tasks.any? %>
-			<% project.tasks.each do |task| %>
-				<p>
-					<strong>Name:</strong>
-					<%= task.name %>
-				</p>
-			
-				<p>
-					<strong>Description:</strong>
-					<%= task.description %>
-				</p>
-			
-				<p>
-					<strong>Priority:</strong>
-					<%= task.priority %>
-				</p>
-			
-				<p>
-					<strong>Done:</strong>
-					<%= task.done %>
-				</p>
-			
-				<td><%= link_to 'Edit', edit_task_path(task) %></td>
-				<td><%= link_to 'Delete', task_path(task),
-					method: :delete,
-					data: {confirm: 'Are you sure?'} %>
-				</td>
+				<% project.tasks.each do |task| %>
+					<p>
+						<strong>Name:</strong>
+						<%= task.name %>
+					</p>
+				
+					<p>
+						<strong>Description:</strong>
+						<%= task.description %>
+					</p>
+				
+					<p>
+						<strong>Priority:</strong>
+						<%= task.priority %>
+					</p>
+				
+					<p>
+						<strong>Done:</strong>
+						<%= task.done %>
+					</p>
+				
+					<td><%= link_to 'Edit', edit_task_path(task) %></td>
+					<td><%= link_to 'Delete', task_path(task),
+						method: :delete,
+						data: {confirm: 'Are you sure?'} %>
+					</td>
 				<% end %>
 			<% end %>
-
+			
 			<td><%= link_to 'Show', project_path(project) %></td>
 			<td><%= link_to 'Edit', edit_project_path(project) %></td>
 			<td><%= link_to 'Delete', project_path(project),

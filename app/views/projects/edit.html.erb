@@ -53,12 +53,7 @@
 		</td>
 	<% end %>
 
-	<label for='project_tasks'>Add Task</label>
-  <select id='project_tasks' name='project[tasks]'>
-    <% @tasks.each do |task| %>
-      <option value="<%= task.id %>"><%= task.name %></option>
-    <% end %>
-  </select>
+	<%= render 'addTask' %>
 
 	<p>
 		<%= form.submit %>
