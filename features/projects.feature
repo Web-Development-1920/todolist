@@ -92,6 +92,6 @@ Feature: Projects
   Scenario: Delete One Existing Project
     Given I go to "/projects/1"
 
-    When I click on "Delete Project"
+    When I click on "Delete"
     And I click on "Yes"
     Then There is not "project" with "id" equal "1"
