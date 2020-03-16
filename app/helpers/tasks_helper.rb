@@ -10,6 +10,14 @@ module TasksHelper
 		end
 	end
 
+	def parse_date(date)
+		begin
+			date.strftime("%F")
+		rescue NoMethodError => nme
+			""
+		end
+	end
+
 	def done_check(data)
 		if data
 			"Yes"

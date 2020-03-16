@@ -35,7 +35,7 @@
 		<label class="col-sm-2 col-form-label">Deadline</label>
 		<div class="col-sm-3">
 			<label for="start"></label>
-			<input type="date" id="start" name="task[deadline]" min="2020-01-01" max="2025-12-31" value="<%= @task.deadline.strftime("%Y/%m/%d - %H:%M %p") %>">
+			<input type="date" id="start" name="task[deadline]" min="2020-01-01" max="2025-12-31" value="<%= parse_date(@task.deadline) %>">
 		</div>
 	</div>
 
