@@ -1,6 +1,6 @@
 # ToDo List
 
-[![Build Status](https://travis-ci.org/Web-Development-1920/todolist.svg?branch=milestone-1)](https://travis-ci.org/Web-Development-1920/todolist)
+[![Build Status](https://travis-ci.org/Web-Development-1920/todolist.svg?branch=master)](https://travis-ci.org/Web-Development-1920/todolist)
 
 Project done by:
 
