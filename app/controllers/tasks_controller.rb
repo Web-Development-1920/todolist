@@ -41,7 +41,7 @@ class TasksController < ApplicationController
 
 	private
 		def find_task
-			@task = Task.find(params[:id])
+			@task = Task.find(params[:id]) or record_not_found
 		end
 		
 		def task_params

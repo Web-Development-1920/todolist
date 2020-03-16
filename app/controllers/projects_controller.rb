@@ -55,21 +55,15 @@ class ProjectsController < ApplicationController
 	end
 
 	private
-	def find_project
-		begin
-			@project = Project.find(params[:id])
-		rescue StandardError => e
-			render json: {
-					error: e.to_s
-			}
+		def find_project
+			@project = Project.find(params[:id]) or record_not_found
 		end
-	end
 
-	def project_params
-		params.require(:project).permit(:name, :description)
-	end
+		def project_params
+			params.require(:project).permit(:name, :description)
+		end
 
-	def task_params
-		params.require(:project).permit(:tasks)
-	end
+		def task_params
+			params.require(:project).permit(:tasks)
+		end
 end
