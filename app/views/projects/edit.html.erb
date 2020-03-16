@@ -1,61 +1,45 @@
-<h1>Edit Project</h1>
-<%= form_with(model: @project, local: true) do |form| %>
-	<% if @project.errors.any? %>
-		<div id="error_explanation">
-			<h2>
-			<%= pluralize(@project.errors.count, "error") %> prohibited
-			this project from being saved:
-			</h2>
-			<ul>
-			<% @project.errors.full_messages.each do |msg| %>
-				<li><%= msg %></li>
-			<% end %>
-			</ul>
-		</div>
-	<% end %>
+<h1  class="text-center"> Edit a Project </h1>
 
-	<p>
-		<%= form.label :name %><br>
-		<%= form.text_field :name %>
-	</p>
+<div class="container">
 
-	<p>
-		<%= form.label :description %><br>
-		<%= form.text_area :description %>
-	</p>
+  <%= form_with(model: @project, local: true) do |form| %>
+    <% if @project.errors.any? %>
+      <div id="error_explanation">
+        <h2>
+          <%= pluralize(@project.errors.count, "error") %> prohibited
+          this project from being saved:
+        </h2>
+        <ul>
+          <% @project.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-	<h2>Tasks</h2>
-	<% @project.tasks.each do |task| %>
-		<p>
-			<strong>Name:</strong>
-			<%= task.name %>
-		</p>
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Name</label>
+      <div class="col-sm-3">
+        <input type="text" class="form-control" id="Name" name="project[name]">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Description</label>
+      <div class="col-sm-9">
+        <textarea class= "form-control" rows="5" name="project[description]"></textarea>
+      </div>
+    </div>
 
-		<p>
-			<strong>Description:</strong>
-			<%= task.description %>
-		</p>
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Add task</label>
+      <div class="col-sm-9">
+        <%= render 'addTask' %>
+      </div>
+    </div>
 
-		<p>
-			<strong>Priority:</strong>
-			<%= task.priority %>
-		</p>
 
-		<p>
-			<strong>Done:</strong>
-			<%= task.done %>
-		</p>
+    <%= form.submit :class => "btn btn-success"%>
+  <% end %>
+</div>
 
-		<td><%= link_to 'Edit', edit_task_path(task) %></td>
-		<td><%= link_to 'Delete', task_path(task),
-			method: :delete,
-			data: {confirm: 'Are you sure?'} %>
-		</td>
-	<% end %>
 
-	<%= render 'addTask' %>
-
-	<p>
-		<%= form.submit %>
-	</p>
-<% end %>

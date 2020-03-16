@@ -1,32 +1,42 @@
-<h1>New Project</h1>
-<%= form_with scope: :project, model: @project, url: projects_path, local: true do |form| %>
-	<% if @project.errors.any? %>
-		<div id="error_explanation">
-			<h2>
-				<%= pluralize(@project.errors.count, "error") %> prohibited
-				this project from being created:
-			</h2>
-			<ul>
-				<% @project.errors.full_messages.each do |msg| %>
-					<li><%= msg %></li>
-				<% end %>
-			</ul>
-		</div>
-	<% end %>
+<h1  class="text-center"> Edit a Project </h1>
+<div class="container">
 
-	<p>
-		<%= form.label :name %><br>
-		<%= form.text_field :name %>
-	</p>
+  <%= form_with(model: @project, local: true) do |form| %>
+    <% if @project.errors.any? %>
+      <div id="error_explanation">
+        <h2>
+          <%= pluralize(@project.errors.count, "error") %> prohibited
+          this project from being created:
+        </h2>
+        <ul>
+          <% @project.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-	<p>
-		<%= form.label :description %><br>
-		<%= form.text_area :description %>
-	</p>
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Name</label>
+      <div class="col-sm-3">
+        <input type="text" class="form-control" id="Name" name="project[name]">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Description</label>
+      <div class="col-sm-9">
+        <textarea class= "form-control" rows="5" name="project[description]"></textarea>
+      </div>
+    </div>
 
-	<%= render 'addTask' %>
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Add task</label>
+      <div class="col-sm-9">
+        <%= render 'addTask' %>
+      </div>
+    </div>
 
-	<p>
-		<%= form.submit %>
-	</p>
-<% end %>
+
+    <%= form.submit :class => "btn btn-success"%>
+  <% end %>
+</div>
