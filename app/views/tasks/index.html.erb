@@ -28,6 +28,7 @@
 					<td><%= task.deadline %></td>
 					<td><%= done_check(task.done) %></td>
 					<td>
+						<a href="<%= task_path(task) %>" class="btn btn-secondary">Show</a>
 						<a href="<%= edit_task_path(task) %>" class="btn btn-info">Edit</a>
 						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal<%= task.id %>">Delete</button>
 					</td>
