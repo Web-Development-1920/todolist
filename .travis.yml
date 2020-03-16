@@ -1,0 +1,16 @@
+language: node_js
+
+node_js:
+    - 12.16.1
+
+before_install:
+    - pwd
+    - rvm install 2.7.0
+    - gem install bundler
+    - nvm install 12.16.1
+script:
+    - export RUBYOPT='-W0'
+    - bundle install
+    - RAILS_ENV=test bundle exec rails webpacker:compile
+    - bundle exec rake db:migrate RAILS_ENV=test
+    - bundle exec rake cucumber

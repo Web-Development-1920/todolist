@@ -8,7 +8,7 @@ gem 'rails', '~> 6.0.2', '>= 6.0.2.1'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.4'
 # Use Puma as the app server
-gem 'puma', '~> 4.3'
+gem 'puma', '~> 4.1'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
@@ -43,9 +43,15 @@ group :development do
 end
 
 group :test do
-	gem 'cucumber-rails', require: false
-	gem 'database_cleaner'
+  # Cucumber
+  gem 'cucumber-rails', require: false
+  # database_cleaner is not required, but highly recommended
+  gem 'database_cleaner'
+
+  # Rspec
+  gem 'rspec'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'travis'
