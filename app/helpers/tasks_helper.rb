@@ -12,7 +12,7 @@ module TasksHelper
 
 	def parse_date(date)
 		begin
-			date.strftime("%F")
+			date.strftime("%Y-%m-%dT%H:%M")
 		rescue NoMethodError => nme
 			""
 		end
