@@ -1,5 +1,7 @@
 class ProjectsController < ApplicationController
 	before_action :find_project, only: [:show, :edit, :update, :destroy]
+	before_action :find_tasks, only: [:new, :edit]
+	before_action :find_task, only: [:create, :update]
 
 	def index
 		@projects = Project.all
@@ -10,40 +12,28 @@ class ProjectsController < ApplicationController
 
 	def new
 		@project = Project.new
-		@tasks = Task.all
 	end
 
 	def edit
-		@tasks = Task.all
 	end
 
 	def create
 		@project = Project.new(project_params)
-		@task = Task.find(task_params[:tasks])
-
-
 
 		if @project.save
-			@task.project_id = @project.id
-			if @task.save
-				redirect_to @project
-			end
-
+			assign_task
 		else
 			# redirect_to new_project_path, :flash => {:error => @project.errors.full_messages.join(', ')}
-			@tasks = Task.all
+			find_tasks
 			render 'new'
 		end
 	end
 
 	def update
-		@task = Task.find(task_params[:tasks])
-		@task.project_id = @project.id
-		@task.save
-
 		if @project.update(project_params)
-			redirect_to @project
+			assign_task
 		else
+			find_tasks
 			render 'edit'
 		end
 	end
@@ -57,6 +47,29 @@ class ProjectsController < ApplicationController
 	private
 		def find_project
 			@project = Project.find(params[:id]) or record_not_found
+		end
+
+		def find_task
+			begin
+				@task = Task.find(task_params[:tasks])
+			rescue ActiveRecord::RecordNotFound => rnf
+				@task = nil
+			end
+		end
+
+		def find_tasks
+			@tasks = Task.all
+		end
+
+		def assign_task
+			if @task
+				@task.project_id = @project.id
+				if @task.save
+					redirect_to @project
+				end
+			else
+				redirect_to @project
+			end
 		end
 
 		def project_params
