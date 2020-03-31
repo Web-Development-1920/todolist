@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_08_094245) do
+ActiveRecord::Schema.define(version: 2020_03_31_103813) do
 
   create_table "projects", force: :cascade do |t|
     t.string "name"
@@ -31,5 +31,26 @@ ActiveRecord::Schema.define(version: 2020_03_08_094245) do
     t.index ["project_id"], name: "index_tasks_on_project_id"
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "surname"
+    t.integer "project_id"
+    t.integer "task_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "username", default: "", null: false
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["project_id"], name: "index_users_on_project_id"
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["task_id"], name: "index_users_on_task_id"
+  end
+
   add_foreign_key "tasks", "projects"
+  add_foreign_key "users", "projects"
+  add_foreign_key "users", "tasks"
 end
