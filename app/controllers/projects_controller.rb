@@ -1,4 +1,5 @@
 class ProjectsController < ApplicationController
+	before_action :authenticate_user!
 	before_action :find_project, only: [:show, :edit, :update, :destroy]
 	before_action :find_tasks, only: [:new, :edit]
 	before_action :find_task, only: [:create, :update]
