@@ -41,10 +41,10 @@
         </ul>
         <div class="my-2 my-lg-0">
             <% if user_signed_in? %>
-                <a href="#" class="btn btn-outline-success my-2 my-sm-0">Sign Out</a>
+                <a href="<%= destroy_user_session_path %>" class="btn btn-outline-success my-2 my-sm-0">Sign Out</a>
             <% else %>
-                <a href="#" class="btn btn-outline-success my-2 my-sm-0">Sign In</a>
-                <a href="<%= new_user_path %>" class="btn btn-outline-success my-2 my-sm-0">Sign Up</a>
+                <a href="<%= new_user_session_path %>" class="btn btn-outline-success my-2 my-sm-0">Sign In</a>
+                <a href="<%= new_user_registration_path %>" class="btn btn-outline-success my-2 my-sm-0">Sign Up</a>
             <% end %>
         </div>
     </div>
