@@ -82,17 +82,27 @@ $(document).ready(function(){
         pass2 = $('#pass2').val();
         mail1 = $('#mail1').val();
         mail2 = $('#mail2').val();
+
+        var valid = true;
         
         if(name.length <= 0 || username.length <= 0 || pass1.length <= 0 || pass2.length <= 0 || mail1.length <= 0 || mail2.length <= 0){
+            valid = false;
             alert("Mandatory fields still empty");
         }
         
         if(mail1 != mail2){
+            valid = false
             alert("Emails don't match");
         }
 
         if(pass1 != pass2){
+            valid = false;
             alert("Passwords don't match");
         }
+
+        // if(valid){
+        //     var form = document.getElementById("new_user");
+        //     form.submit();
+        // }
     });
 });

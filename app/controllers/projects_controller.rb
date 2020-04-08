@@ -5,7 +5,7 @@ class ProjectsController < ApplicationController
 	before_action :find_task, only: [:create, :update]
 
 	def index
-		@projects = Project.all
+		@projects = @current_user.Project.all
 	end
 
 	def show
@@ -19,8 +19,8 @@ class ProjectsController < ApplicationController
 	end
 
 	def create
-		@project = Project.new(project_params)
-
+		@project = @current_user.Project.new(project_params)
+		
 		if @project.save
 			assign_task
 		else
@@ -47,19 +47,19 @@ class ProjectsController < ApplicationController
 
 	private
 		def find_project
-			@project = Project.find(params[:id]) or record_not_found
+			@project = @current_user.Project.find(params[:id]) or record_not_found
 		end
 
 		def find_task
 			begin
-				@task = Task.find(task_params[:tasks])
+				@task = @current_user.Task.find(task_params[:tasks])
 			rescue ActiveRecord::RecordNotFound => rnf
 				@task = nil
 			end
 		end
 
 		def find_tasks
-			@tasks = Task.all
+			@tasks = @current_user.Task.all
 		end
 
 		def assign_task
