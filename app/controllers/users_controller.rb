@@ -13,7 +13,7 @@ class UsersController < ApplicationController
         @user = User.new(user_params)
 
         if @user.save
-            redirect_to todolist_index_path
+            redirect_to todolist_index_path, notice: "User created"
         else
             render 'new'
         end
@@ -27,7 +27,7 @@ class UsersController < ApplicationController
 
     def update
         if @user.update(user_params)
-            redirect_to @user
+            redirect_to @user, notice: "User updated"
         else
             render 'edit'
         end
@@ -36,7 +36,9 @@ class UsersController < ApplicationController
     def destroy
         @user.destroy
 
-        redirect_to todolist_index_path
+        if @user.destroy
+            redirect_to todolist_index_path, notice: "User deleted"
+        end
     end
 
     private
