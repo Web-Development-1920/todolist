@@ -1,6 +1,6 @@
 <h2>Sign Up</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |form| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {id: "signup_form"}) do |form| %>
     <%= render "devise/shared/error_messages", resource: resource %>
     
     <div class="panel-group">
@@ -39,7 +39,7 @@
                     <div class="form-group row" id=userData>
                         <label class="col-sm-2 col-form-label" >Password:</label>
                         <div class="col-sm-3">
-                            <input id= "pass1" type="password" class="form-control checkSeguridad" name="user[encrypted_password]">
+                            <input id= "pass1" type="password" class="form-control checkSeguridad" name="user[password]">
                         </div>
 
                         <label class="col-sm-2 col-form-label" >Repeat password:</label>

@@ -1,4 +1,4 @@
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |form| %>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {id: "login_form"}) do |form| %>
     <%= render "devise/shared/error_messages", resource: resource %>
     
     <div class="modal-dialog text-center">
@@ -37,12 +37,13 @@
 <% end %>
 
 <script>
-    $("#login").click(function(){
+    $("#login_form").submit(function(){
         var username = $("#username").val();
         var pass=$("#pass").val();
 
         if(username.length <= 0 || pass.length <= 0){
             alert("Enter login details");
+            return false;
         }
-    });    
+    });
 </script>

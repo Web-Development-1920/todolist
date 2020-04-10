@@ -1,0 +1,75 @@
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { id: "delete_form", method: :delete }) do |form| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+    
+    <div class="container">
+        <h2>Remove Account</h2>
+        
+        <div class="panel-group">
+            <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong>Attention</strong>
+            </div>
+            
+            <div class="panel-body">
+                <form>
+                    <p>
+                        Dear user:
+                    
+                        <br>
+                        <br>
+
+                        We're sorry to hear that you want to delete your account.
+                        
+                        <br>
+                        
+                        If you choose such an option, <strong>you'll have to choose a reason in the box below, so you'll help us to improve our services.</strong>
+                        
+                        <br>
+                        <br>
+                        
+                        We hope that you enjoyed!
+                    </p>
+
+                    <br>
+                    
+                    <select class="mdb-select md-form" id="cause"> 
+                        <option value="" disabled selected>I want to delete this account because</option>
+                        <option value="1">I'm using another app</option>
+                        <option value="2">I don't know how to use ToDo List</option>
+                        <option value="3">I don't feel safe</option>
+                        <option value="4">This is temporary. I'll be back</option>
+                        <option value="5">Other</option>
+                    </select>
+                    
+                    <br>
+                    <br>
+                </form>
+
+                <div class="form-group">
+                    <label for="comment">If you choose other, you can leave a comment if you want:</label>
+                    <textarea class="form-control" rows="5" id="comment"></textarea>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <p align="center">
+            <%= form.submit "Remove this Account", :class => "btn btn-danger", :id => "remove" %>
+        </p>
+    </div>
+<% end %>
+
+<script>
+    $("#delete_form").submit(function(){
+        var mensaje = confirm("Are you sure that you want to remove this account?");
+        var selection = $("#cause").val();
+
+        if(!mensaje){
+            alert("Operation cancelled");
+            return false;
+        } else if(selection != 1 && selection != 2 && selection != 3 && selection != 4 && selection != 5){
+            alert("Select a reason for disable your account");
+            return false;
+        }
+    }); 
+</script>
