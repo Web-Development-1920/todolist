@@ -4,6 +4,22 @@ var checkMatching = function(val1, val2){
     } else {
         return false
     }
+};
+
+var validPass = function(pass){
+    if(pass.match(/[a-z]/) && pass.match(/[A-Z]/) && pass.match(/[(,=.!@#$%^&*·¿¡+{}_|)]/) && pass.length >= 8){
+        return true;
+    } else {
+        return false;
+    }
+};
+
+var validEmail = function(email){
+    if(email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)){
+        return true;
+    } else {
+        return false;
+    }
 }
 
 $('#pass1').keyup(function(){
@@ -88,6 +104,10 @@ $('#signup').click(function(){
         alert("Emails don't match");
     } else if(pass1 != pass2){
         alert("Passwords don't match");
+    } else if(!validPass(pass1)){
+        alert("Password does not meet requirements");
+    } else if(!validEmail(mail1)){
+        alert("Email is not valid");
     } else {
         $('#signup_form').submit();
     }
