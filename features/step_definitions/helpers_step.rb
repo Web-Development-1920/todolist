@@ -12,6 +12,7 @@ Given("I go to {string}") do |path|
   expect(page.status_code).to be(200)
 end
 
+
 Then("I am on {string}") do |path|
   expect(page).to have_current_path(path)
 
@@ -110,4 +111,20 @@ Given("I create a {string} with the following data:") do |name, table|
 
   model.create(table.hashes)
 
+end
+
+
+And("I have a session") do
+  expect(user_signed_in?).to be(TRUE)
+end
+
+And("I do not have a session") do
+  expect(user_signed_in?).to be(FALSE)
+end
+
+Given("I sing in with {string}") do |input_email|
+  visit '/users/sign_in'
+  fill_in "user_email", :with => input_email
+  fill_in "user_password", :with => "secret"
+  click_button "Sign in"
 end
