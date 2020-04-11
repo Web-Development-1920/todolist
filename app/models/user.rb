@@ -6,5 +6,5 @@ class User < ApplicationRecord
     has_many :tasks, dependent: :destroy
     has_many :projects, dependent: :destroy
     
-    validates :name, :surname, :username, :email, :encrypted_password, presence: true
+    validates :name, :username, :email, :password, presence: true
 end
