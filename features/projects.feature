@@ -13,6 +13,11 @@ Feature: Projects
     And I create a "task" with the following data:
       | name  | description   | priority  | done  |
       | Task3 | This is task3 | 1         | False |
+    And I create a "user" with the following data:
+      | name      | surname       | username | email | encrypted_password |
+      | User1  | Surname1  | username1 | email1@gmail.com | $2a$11$1JiMwaCtcAWxMQysohNvhOobkY.7j39nxnMlU4HqYfovWyk0neNhC |
+    And I sing in with "email1@gmail.com"
+#    And I have a session
 
 	## Create
 

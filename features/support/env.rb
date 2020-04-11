@@ -6,6 +6,8 @@
 
 require 'cucumber/rails'
 
+
+
 # frozen_string_literal: true
 
 # Capybara defaults to CSS3 selectors rather than XPath.
@@ -65,3 +67,5 @@ Capybara.javascript_driver = :poltergeist
 Capybara.app_host = 'http://localhost:3002'
 Capybara.server_host = 'localhost'
 Capybara.server_port = '3002'
+
+
