@@ -7,20 +7,18 @@
         <div class="panel panel-default">
             <div class="panel-heading"> <strong>Personal Data</strong></div>
             <div class="panel-body">
-                <form>
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Name:</label>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control" id="name" name="user[name]" required>
-                        </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Name:</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="name" name="user[name]" required>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Surname:</label>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control" id="surname" name="user[surname]">
-                        </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Surname:</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="surname" name="user[surname]">
                     </div>
-                </form>
+                </div>
             </div>
         </div>
 
@@ -29,57 +27,55 @@
         <div class="panel panel-default">
             <div class="panel-heading"><strong>User Data</strong></div>
             <div class="panel-body">
-                <form>
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Username:</label>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control" id= "username" name="user[username]" required>
-                            <div class="invalid-feedback">
-                                Choose an username
-                            </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Username:</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id= "username" name="user[username]" required>
+                        <div class="invalid-feedback">
+                            Choose an username
                         </div>
                     </div>
-                    <div class="form-group row" id=userData>
-                        <label class="col-sm-2 col-form-label" >Password:</label>
-                        <div class="col-sm-3">
-                            <input id= "pass1" type="password" class="form-control checkSeguridad" name="user[password]" required>
-                        </div>
-
-                        <label class="col-sm-2 col-form-label" >Repeat password:</label>
-                        <div class="col-sm-3">
-                            <input id= "pass2" type="password" class="form-control checkSeguridad" required>
-                        </div>
-
-                        <div id="passMatch">
-                            <p id="match" class="invalid">Passwords don't match</p>
-                        </div>
-
-                        <div id="alertPass">
-                            <h6><strong>Password must meet the following requirements:</strong></h6>
-                            <ul>
-                                <li id="long" class="invalid">At least <strong><%= @minimum_password_length %> characters</strong></li>
-                                <li id="capital" class="invalid">At least <strong>one capital letter (A-Z)</strong></li>
-                                <li id="letter" class="invalid">At least <strong>one lower case letter (a-z)</strong></li>
-                                <li id="char" class="invalid">At least <strong>a special character ([%@*...)</strong></li>
-                            </ul>
-                        </div>
+                </div>
+                <div class="form-group row" id=userData>
+                    <label class="col-sm-2 col-form-label" >Password:</label>
+                    <div class="col-sm-3">
+                        <input id= "pass1" type="password" class="form-control checkSeguridad" name="user[password]" required>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Email:</label>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control" id="mail1" required="true" name="user[email]" required>
-                        </div>
-                        
-                        <label class="col-sm-2 col-form-label">Repeat email:</label>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control" id="mail2" required="true" required>
-                        </div>
 
-                        <div id="alertMail">
-                                <p id="match" class="invalid">Emails don't match</p>
-                        </div>
+                    <label class="col-sm-2 col-form-label" >Repeat password:</label>
+                    <div class="col-sm-3">
+                        <input id= "pass2" type="password" class="form-control checkSeguridad" required>
                     </div>
-                </form>
+
+                    <div id="passMatch">
+                        <p id="match" class="invalid">Passwords don't match</p>
+                    </div>
+
+                    <div id="alertPass">
+                        <h6><strong>Password must meet the following requirements:</strong></h6>
+                        <ul>
+                            <li id="long" class="invalid">At least <strong><%= @minimum_password_length %> characters</strong></li>
+                            <li id="capital" class="invalid">At least <strong>one capital letter (A-Z)</strong></li>
+                            <li id="letter" class="invalid">At least <strong>one lower case letter (a-z)</strong></li>
+                            <li id="char" class="invalid">At least <strong>a special character ([%@*...)</strong></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Email:</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="mail1" required="true" name="user[email]" required>
+                    </div>
+                    
+                    <label class="col-sm-2 col-form-label">Repeat email:</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="mail2" required="true" required>
+                    </div>
+
+                    <div id="alertMail">
+                            <p id="match" class="invalid">Emails don't match</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
