@@ -10,9 +10,4 @@ class ApplicationController < ActionController::Base
     def record_not_found
         raise ActiveRecord::RecordNotFound.new('Not Found')
     end
-
-    def current_user
-        return unless session[:user_id]
-        @current_user ||= User.find(session[:user_id])
-    end
 end
