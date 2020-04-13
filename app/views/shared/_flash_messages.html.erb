@@ -1,0 +1,11 @@
+<div id="flash_messages">
+    <% flash.each do |key, value| %>
+        <% if key == "error" %>
+            <%= content_tag(:div, value, :class => "flash #{key}", :style => "text-align:center; background-color: #ff0000") %>
+        <% elsif key == "alert" %>
+            <%= content_tag(:div, value, :class => "flash #{key}", :style => "text-align:center; background-color: #ff0000") %>
+        <% else %>
+            <%= content_tag(:div, value, :class => "flash #{key}", :style => "text-align:center; background-color: #99ff66") %>
+        <% end %>
+    <% end %>
+</div>
