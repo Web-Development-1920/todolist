@@ -3,7 +3,7 @@ class TasksController < ApplicationController
     before_action :find_task, only: [:show, :edit, :update, :destroy]
 
     def index
-        @tasks = @current_user.Task.all
+        @tasks = current_user.tasks.all
     end
 
     def new
@@ -11,7 +11,7 @@ class TasksController < ApplicationController
     end
 
     def create
-        @task = @current_user.Task.new(task_params)
+        @task = current_user.tasks.new(task_params)
 
         if @task.save
             redirect_to @task, notice: "Task created"
@@ -42,7 +42,7 @@ class TasksController < ApplicationController
 
     private
         def find_task
-            @task = @current_user.Task.find(params[:id]) or record_not_found
+            @task = current_user.tasks.find(params[:id]) or record_not_found
         end
         
         def task_params
