@@ -1,43 +1,101 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |form| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading"> <strong>Personal Data</strong></div>
+            <div class="panel-body">
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Name:</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="name" name="user[name]" value="<%= resource.name %>">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Surname:</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="surname" name="user[surname]" value="<%= resource.surname %>">
+                    </div>
+                </div>
+            </div>
+        </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+        <br>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
+        <div class="panel panel-default">
+            <div class="panel-heading"><strong>User Data</strong></div>
+            <div class="panel-body">
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Username:</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id= "username" name="user[username]" value="<%= resource.username %>">
+                        <div class="invalid-feedback">
+                            Choose an username
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row" id="userData">
+                    <label class="col-sm-2 col-form-label" >Password <i>(leave blank if you don't want to change it)</i>:</label>
+                    <div class="col-sm-3">
+                        <input id= "pass1" type="password" class="form-control checkSeguridad" name="user[password]">
+                    </div>
 
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
-  </div>
+                    <label class="col-sm-2 col-form-label" >Password confirmation:</label>
+                    <div class="col-sm-3">
+                        <input id= "pass2" type="password" class="form-control checkSeguridad" >
+                    </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+                    <div id="passMatch">
+                        <p id="match" class="invalid">Passwords don't match</p>
+                    </div>
 
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
+                    <div id="alertPass">
+                        <h6><strong>Password must meet the following requirements:</strong></h6>
+                        <ul>
+                            <li id="long" class="invalid">At least <strong><%= @minimum_password_length %> characters</strong></li>
+                            <li id="capital" class="invalid">At least <strong>one capital letter (A-Z)</strong></li>
+                            <li id="letter" class="invalid">At least <strong>one lower case letter (a-z)</strong></li>
+                            <li id="char" class="invalid">At least <strong>a special character ([%@*...)</strong></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Email:</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="mail1" name="user[email]" value="<%= resource.email %>">
+                    </div>
 
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
+                    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+                    <% end %>
+                    
+                    <label class="col-sm-2 col-form-label">Email confirmation:</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="mail2">
+                    </div>
+                </div>
+            </div>
+
+            <br>
+
+            <div>
+                <label>Current password <i>(we need your current password to confirm your changes)</i>:</label>
+                <div class="col-sm-3">
+                    <input type="password" class="col-xs-4" id="name" name="user[current_password]" required>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <%= form.submit "Update", :class => "btn btn-success", :id => "update" %>
 <% end %>
 
-<h3>Cancel my account</h3>
+<hr class="solid">
+<hr class="solid">
 
 <p><%= render 'delete' %></p>
 
-<%= link_to "Back", :back %>
+<%= javascript_pack_tag 'updateCheckers' %>
+<%= stylesheet_link_tag 'validation' %>

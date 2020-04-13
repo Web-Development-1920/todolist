@@ -59,14 +59,16 @@
 
 <script>
     $("#delete_form").submit(function(){
-        var mensaje = confirm("Are you sure that you want to remove this account?");
-        var selection = $("#cause").val();
-
-        if(!mensaje){
-            alert("Operation cancelled");
-            return false;
-        } else if(selection != 1 && selection != 2 && selection != 3 && selection != 4 && selection != 5){
+        var selection = document.getElementById("cause");
+        if(selection.selectedIndex == 0){
             alert("Select a reason for disable your account");
+            return false;
+        }
+
+        var confirmation = confirm("Are you sure that you want to remove this account?");
+
+        if(!confirmation){
+            alert("Operation cancelled");
             return false;
         }
     }); 
