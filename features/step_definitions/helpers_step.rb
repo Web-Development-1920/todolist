@@ -111,6 +111,7 @@ Given("I create a {string} with the following data:") do |name, table|
 
   model.create(table.hashes)
 
+
 end
 
 
@@ -124,7 +125,7 @@ end
 
 Given("I sing in with {string}") do |input_email|
   visit '/users/sign_in'
-  fill_in "user_email", :with => input_email
-  fill_in "user_password", :with => "secret"
-  click_button "Sign in"
+  fill_in "user[email]", :with => input_email
+  fill_in "user[password]", :with => "password"
+  click_button "Log In"
 end

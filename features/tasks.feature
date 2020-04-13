@@ -1,12 +1,12 @@
 Feature: Tasks
 
 	Background:
-		Given I create a "task" with the following data:
-			| name | description | priority | done |
-			| Task1 | This is task1 | 1  | False |
-		And I create a "user" with the following data:
-			| name      | surname       | username | email | encrypted_password |
-			| User1  | Surname1  | username1 | email1@gmail.com | $2a$11$1JiMwaCtcAWxMQysohNvhOobkY.7j39nxnMlU4HqYfovWyk0neNhC |
+		Given I create a "user" with the following data:
+			| name      | surname       | username | email | password | password_confirmation |
+			| User1  | Surname1  | username1 | email1@gmail.com | password | password             |
+		And I create a "task" with the following data:
+			| name | description | priority | done | user_id |
+			| Task1 | This is task1 | 1  | False | 1         |
 		And I sing in with "email1@gmail.com"
 #		And I have a session
 
@@ -46,14 +46,14 @@ Feature: Tasks
 
 	Scenario: Read All Tasks
 		Given I create a "task" with the following data:
-			| name | description | priority | done |
-			| Task2 | This is task2 | 1  | False |
+			| name | description | priority | done | user_id |
+			| Task2 | This is task2 | 1  | False | 1         |
 		And I create a "task" with the following data:
-			| name | description | priority | done |
-			| Task3 | This is task3 | 1  | False |
+			| name | description | priority | done | user_id |
+			| Task3 | This is task3 | 1  | False | 1         |
 		And I create a "task" with the following data:
-			| name | description | priority | done |
-			| Task4 | This is task4 | 1  | False |
+			| name | description | priority | done | user_id |
+			| Task4 | This is task4 | 1  | False | 1         |
 		And I go to "/tasks"
 
 		Then I see "Task1"
