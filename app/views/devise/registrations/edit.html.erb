@@ -35,14 +35,14 @@
                     </div>
                 </div>
                 <div class="form-group row" id="userData">
-                    <label class="col-sm-2 col-form-label" >Password <i>(leave blank if you don't want to change it)</i>:</label>
+                    <label class="col-sm-2 col-form-label" >Password:</label>
                     <div class="col-sm-3">
-                        <input id= "pass1" type="password" class="form-control checkSeguridad" name="user[password]">
+                        <input id= "pass1" type="password" class="form-control checkSeguridad" name="user[password]" value="<%= resource.password %>">
                     </div>
 
-                    <label class="col-sm-2 col-form-label" >Password confirmation:</label>
+                    <label class="col-sm-2 col-form-label" >Password confirmation <i>(leave blank if you don't want to change it)</i>:</label>
                     <div class="col-sm-3">
-                        <input id= "pass2" type="password" class="form-control checkSeguridad" >
+                        <input id= "pass2" type="password" class="form-control checkSeguridad">
                     </div>
 
                     <div id="passMatch">
@@ -69,7 +69,7 @@
                         <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
                     <% end %>
                     
-                    <label class="col-sm-2 col-form-label">Email confirmation:</label>
+                    <label class="col-sm-2 col-form-label">Email confirmation <i>(leave blank if you don't want to change it)</i>:</label>
                     <div class="col-sm-3">
                         <input type="text" class="form-control" id="mail2">
                     </div>
