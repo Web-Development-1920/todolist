@@ -1,0 +1,29 @@
+<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |form| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <div class="modal-dialog text-center">
+        <div class="col-sm-8">
+            <div class= "modal-content">
+                <h2>Forgot your password?</h2>
+
+                <form class ="col-12">
+                    <div class="form-group row">
+                        <div class="col-sm-2 col-form-label">
+                            <span class="glyphicon glyphicon-user"></span>
+                        </div>
+                        <div class="col-sm-9">
+                            <label>Email:</label>
+                            <input id= "email" type="text" class="form-control" placeholder="Email" name="user[email]">
+                        </div>
+                    </div>
+
+                    <p align="center">
+                        <%= form.submit "Send me reset password instructions", :class => "btn btn-success" %>
+                    </p>
+                </form>
+
+                <h6>Don't have an account?<a href="<%= new_user_registration_path %>"> Sign Up</a></h6>
+            </div>
+        </div>
+    </div>
+<% end %>

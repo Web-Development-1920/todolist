@@ -39,17 +39,26 @@
                 </div>
             </li>
         </ul>
-        <!-- <div class="my-2 my-lg-0">
-            <a href="#" class="btn btn-outline-success my-2 my-sm-0">Login</a>
-            <a href="#" class="btn btn-outline-success my-2 my-sm-0">Logout</a>
-        </div> -->
+        <div class="my-2 my-lg-0">
+            <% if user_signed_in? %>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My Account</button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="<%= edit_user_registration_path %>">Settings</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="<%= destroy_user_session_path %>">Sign Out</a>
+                    </div>
+                </div>
+            <% else %>
+                <a href="<%= new_user_session_path %>" class="btn btn-info my-2 my-sm-0">Sign In</a>
+                <a href="<%= new_user_registration_path %>" class="btn btn-info my-2 my-sm-0">Sign Up</a>
+            <% end %>
+        </div>
     </div>
 </nav>
 <div class="container">
+    <%= render 'shared/flash_messages' if !flash.empty? %>
     <%= yield %>
 </div>
-
 </body>
-
 </html>
-

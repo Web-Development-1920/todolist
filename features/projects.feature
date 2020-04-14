@@ -1,18 +1,24 @@
 Feature: Projects
 
   Background:
-    Given I create a "project" with the following data:
-      | name      | description       |
-      | Project1  | This is project1  |
+    Given I create a "user" with the following data:
+      | name      | surname       | username | email | password | password_confirmation |
+      | User1  | Surname1  | username1 | email1@gmail.com | password | password             |
+    And I create a "project" with the following data:
+      | name      | description       | user_id |
+      | Project1  | This is project1  | 1       |
     And I create a "task" with the following data:
-      | name  | description   | priority  | done  | project_id  |
-      | Task1 | This is task1 | 1         | False | 1           |
+      | name  | description   | priority  | done  | project_id  | user_id |
+      | Task1 | This is task1 | 1         | False | 1           | 1       |
     And I create a "task" with the following data:
-      | name  | description   | priority  | done | project_id   |
-      | Task2 | This is task2 | 3         | True | 1            |
+      | name  | description   | priority  | done | project_id   | user_id |
+      | Task2 | This is task2 | 3         | True | 1            | 1       |
     And I create a "task" with the following data:
-      | name  | description   | priority  | done  |
-      | Task3 | This is task3 | 1         | False |
+      | name  | description   | priority  | done  | user_id |
+      | Task3 | This is task3 | 1         | False | 1       |
+
+    And I sing in with "email1@gmail.com"
+#    And I have a session
 
 	## Create
 
@@ -52,14 +58,14 @@ Feature: Projects
 
   Scenario: Read All Projects
     Given I create a "project" with the following data:
-      | name | description |
-      | Project2 | This is project2 |
+      | name | description |  user_id |
+      | Project2 | This is project2 | 1 |
     And I create a "project" with the following data:
-      | name | description |
-      | Project3 | This is project3 |
+      | name | description |  user_id |
+      | Project3 | This is project3 | 1 |
     And I create a "project" with the following data:
-      | name | description |
-      | Project4 | This is project4 |
+      | name | description |  user_id |
+      | Project4 | This is project4 | 1 |
 
     And I go to "/projects"
 

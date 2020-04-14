@@ -1,0 +1,40 @@
+<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {id: "login_form"}) do |form| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+    
+    <div class="modal-dialog text-center">
+        <div class="col-sm-8">
+            <div class= "modal-content">
+                <h2>Sign In</h2>
+                
+                <div class="form-group row">
+                    <div class="col-sm-2 col-form-label">
+                        <span class="glyphicon glyphicon-user"></span>
+                    </div>
+                    <div class="col-sm-9">
+                        <input id= "email" type="text" class="form-control" placeholder="Email" name="user[email]">
+                    </div>
+                </div>
+                
+                <div class="form-group row">
+                    <div class="col-sm-2 col-form-label">
+                        <span class="glyphicon glyphicon-lock"></span>
+                    </div>
+                    <div class="col-sm-9">
+                        <input id= "pass" type="password" class="form-control" placeholder="Password" name="user[password]">
+                    </div>
+                </div>
+
+                <p align="center">
+                    <%= flash[:alert] %>
+                    
+                    <br>
+
+                    <%= form.submit "Log In", :class => "btn btn-success", :id => "login" %>
+                </p>
+
+                <h6>Don't have an account?<a href="<%= new_user_registration_path %>"> Sign Up</a></h6>
+                <!--<h6><a href="<%= new_password_path(resource_name) %>">Forgot yout password?</a></h6>-->
+            </div>
+        </div>
+    </div>
+<% end %>
