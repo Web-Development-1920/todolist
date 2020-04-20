@@ -1,8 +1,8 @@
 <select id='project_tasks' name='project[tasks]'>
-	<option value="-1"></option>
-	<% @tasks.each do |task| %>
-		<% if task.project_id.nil? %>
-			<option value="<%= task.id %>"><%= task.name %></option>
-		<% end %>
-	<% end %>
+    <option value="-1"></option>
+    <% @tasks.each do |task| %>
+        <% if task.project_id.nil? %>
+            <option value="<%= task.id %>"><%= task.name %></option>
+        <% end %>
+    <% end %>
 </select>
