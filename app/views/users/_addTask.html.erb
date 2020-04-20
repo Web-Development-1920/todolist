@@ -1,0 +1,8 @@
+<select id='user_tasks' name='user[tasks]'>
+    <option value="-1"></option>
+    <% @tasks.each do |task| %>
+        <% if task.user_id.nil? %>
+            <option value="<%= task.id %>"><%= task.name %></option>
+        <% end %>
+    <% end %>
+</select>

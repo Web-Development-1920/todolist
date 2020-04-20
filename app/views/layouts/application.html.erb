@@ -25,19 +25,25 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="ProjectsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Projects</a>
+                <button class="btn btn-secondary dropdown-toggle" id="ProjectsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:#383838;border:none">Projects</button>
                 <div class="dropdown-menu" aria-labelledby="ProjectsDropdown">
                     <a class="dropdown-item" href="<%= projects_path %>">Projects List</a>
                     <a class="dropdown-item" href="<%= new_project_path %>">New Project</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="TasksDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tasks</a>
+                <button class="btn btn-secondary dropdown-toggle" id="TasksDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:#383838;border:none">Tasks</button>
                 <div class="dropdown-menu" aria-labelledby="TasksDropdown">
                     <a class="dropdown-item" href="<%= tasks_path %>">Tasks List</a>
                     <a class="dropdown-item" href="<%= new_task_path %>">New Task</a>
                 </div>
             </li>
+
+            <% if current_user.try(:admin?) %>
+                <li>
+                    <a href="<%= users_path %>" class="btn btn-secondary" style="background-color:#383838;border:none">Users</a>
+                </li>
+            <% end %>
         </ul>
         <div class="my-2 my-lg-0">
             <% if user_signed_in? %>
