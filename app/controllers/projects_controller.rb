@@ -3,6 +3,7 @@ class ProjectsController < ApplicationController
     before_action :find_project, only: [:show, :edit, :update, :destroy]
     before_action :find_tasks, only: [:new, :edit]
     before_action :find_task, only: [:create, :update]
+    before_action :find_users, only: [:index, :show]
 
     def index
         @projects = current_user.projects.all
@@ -46,6 +47,10 @@ class ProjectsController < ApplicationController
     end
 
     private
+        def find_users
+            @users = User.all
+        end
+
         def find_project
             @project = current_user.projects.find(params[:id]) or record_not_found
         end
