@@ -19,12 +19,12 @@ class ProjectsController < ApplicationController
     end
 
     def create
-        @project = current_user.projects.new(project_params)
+        @project = Project.new(project_params)
         
         if @project.save
+            current_user.projects << @project
             assign_task
         else
-            # redirect_to new_project_path, :flash => {:error => @project.errors.full_messages.join(', ')}
             find_tasks
             render 'new'
         end
