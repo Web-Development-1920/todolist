@@ -58,7 +58,7 @@
                                         <label for="recipient-name" class="col-form-label">Share with:</label>
                                         <select class="form-control select2">
                                             <% @users.each do |user| %>
-                                                <% if !user.projects.any? %>
+                                                <% if !user.projects.include?(@project) %>
                                                     <option value="<%= user.id %>"><%= user.username %></option>
                                                 <% end %>
                                             <% end %>

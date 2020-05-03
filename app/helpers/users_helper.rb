@@ -6,4 +6,8 @@ module UsersHelper
             "No"
         end
     end
+    
+    def find_notifications
+        @n_notifications = Notification.where(user_id: current_user.id, read: false).count
+    end
 end
