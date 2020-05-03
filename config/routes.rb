@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     resources :tasks
     resources :projects
     resources :users
+    resources :notifications
+    resources :shares
 
     root 'todolist#index'
 end

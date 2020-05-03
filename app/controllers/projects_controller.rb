@@ -4,6 +4,7 @@ class ProjectsController < ApplicationController
     before_action :find_tasks, only: [:new, :edit]
     before_action :find_task, only: [:create, :update]
     before_action :find_users, only: [:index, :show]
+    before_action :find_shares, only: [:show]
 
     def index
         @projects = current_user.projects.all
@@ -53,6 +54,10 @@ class ProjectsController < ApplicationController
 
         def find_project
             @project = current_user.projects.find(params[:id]) or record_not_found
+        end
+
+        def find_shares
+            @shares = Share.where(project_id: @project.id, accepted: true)
         end
 
         def find_task
