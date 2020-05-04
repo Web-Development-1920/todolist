@@ -7,7 +7,7 @@ Feature: Tasks
 		And I create a "task" with the following data:
 			| name | description | priority | done | user_id |
 			| Task1 | This is task1 | 1  | False | 1         |
-		And I sing in with "email1@gmail.com"
+		And I sign in with "email1@gmail.com"
 #		And I have a session
 
 	## Create

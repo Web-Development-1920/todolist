@@ -20,7 +20,7 @@ Feature: Projects
       | name  | description   | priority  | done  | user_id |
       | Task3 | This is task3 | 1         | False | 1       |
 
-    And I sing in with "email1@gmail.com"
+    And I sign in with "email1@gmail.com"
 #    And I have a session
 
 	## Create
@@ -125,18 +125,11 @@ Feature: Projects
       | User2  | Surname2  | username2 | email2@gmail.com | P@ssw0rd | P@ssw0rd             |
     And I go to "/projects/1"
     And I click on "Share"
-    And I choose "User2" from "select_user" selection
-    And I click on "share_button"
+    And I choose "username2" from "select_user" selection
+    And I click on "Share Project"
 
     Then I go to "/projects/1"
-    And I see "User2"
+    And I see "username2"
 
-    And I sing out
-    And I sing in with "email2@gmail.com"
-    And I go to "/projects/1"
-    And I see "Project1"
-
-    And The following "notification" exists:
-      | user_id  | data |
-      | 2 | username1 shares a project with you |
-
+    And I sign out
+    And I sign in with "email2@gmail.com"

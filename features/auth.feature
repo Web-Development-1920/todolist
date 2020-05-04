@@ -10,7 +10,7 @@ Feature: Auth System and Users implementation
 
   # AUTH SYSTEM
 
-  Scenario: Sing in with an existing user
+  Scenario: sign in with an existing user
     Given I go to "/users/sign_in"
 
     When I fill "user[email]" with "email1@gmail.com"
@@ -19,8 +19,8 @@ Feature: Auth System and Users implementation
     Then  I am on "/"
     And I see "Sign Out"
 
-  Scenario: Sing out with an existing session
-    Given I sing in with "email1@gmail.com"
+  Scenario: sign out with an existing session
+    Given I sign in with "email1@gmail.com"
     And I go to "/users/sign_out"
 
     Then  I am on "/"
@@ -29,7 +29,7 @@ Feature: Auth System and Users implementation
 
 
   Scenario: Check user can access to restricted areas
-    Given I sing in with "email1@gmail.com"
+    Given I sign in with "email1@gmail.com"
 
     When  I go to "/projects"
     Then  I am on "/projects"
@@ -65,7 +65,7 @@ Feature: Auth System and Users implementation
   ## Read User
 
 #  Scenario: Read One Existing User
-#    Given I sing in with "email1@gmail.com"
+#    Given I sign in with "email1@gmail.com"
 #    Given I go to "/users/1"
 #
 #    Then I see "User1"
@@ -77,7 +77,7 @@ Feature: Auth System and Users implementation
 #  ## Update user
 #
 #  Scenario: Update One Existing User
-#    Given I sing in with "email1@gmail.com"
+#    Given I sign in with "email1@gmail.com"
 #    Given I go to "/users/edit"
 #
 #    When I fill "user[name]" with "User2 edit"
@@ -94,7 +94,7 @@ Feature: Auth System and Users implementation
 #  ## Delete
 #
 #  Scenario: Delete One Existing User
-#    Given I sing in with "email1@gmail.com"
+#    Given I sign in with "email1@gmail.com"
 #    Given I go to "/users/1"
 #
 #    When I click on "Delete"

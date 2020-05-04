@@ -123,13 +123,13 @@ And("I do not have a session") do
   expect(user_signed_in?).to be(FALSE)
 end
 
-Given("I sing in with {string}") do |input_email|
+Given("I sign in with {string}") do |input_email|
   visit '/users/sign_in'
   fill_in "user[email]", :with => input_email
   fill_in "user[password]", :with => "P@ssw0rd"
   click_button "Log In"
 end
 
-Given("I sing out") do |input_email|
+Given("I sign out") do
   visit '/users/sign_out'
 end
