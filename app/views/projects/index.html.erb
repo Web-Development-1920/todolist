@@ -15,33 +15,85 @@
         </thead>
         <tbody>
             <% @projects.each do |project| %>
-                <td><%= project.name %></td>
-                <td><%= project.description %></td>
-                <td>
-                    <a href="<%= project_path(project) %>" class="btn btn-secondary">Show</a>
-                    <a href="<%= edit_project_path(project) %>" class="btn btn-info">Edit</a>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal<%= project.id %>">Delete</button>
-                </td>
+                <% @shares.each do |share| %>
+                    <% if share.project_id == project.id && share.accepted? %>
+                        <tr>
+                            <td><%= project.name %></td>
+                            <td><%= project.description %></td>
+                            <td>
+                                <a href="<%= project_path(project) %>" class="btn btn-secondary">Show</a>
+                                <a href="<%= edit_project_path(project) %>" class="btn btn-info">Edit</a>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal<%= project.id %>">Delete</button>
+                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#shareModal<%= project.id %>">Share</button>
+                            </td>
+                        </tr>
 
-                <div class="modal fade" id="deleteModal<%= project.id %>" tabindex="-1" role="dialog" aria-labelledby="deleteCheckTitle" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="deleteCheckTitle">ATTENTION</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                Are you sure you want to delete this project?
-                            </div>
-                            <div class="modal-footer">
-                                <a rel="nofollow" data-method="delete" href="<%= project_path(project) %>" class="btn btn-success">Yes</a>
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                        <div class="modal fade" id="deleteModal<%= project.id %>" tabindex="-1" role="dialog" aria-labelledby="deleteCheckTitle" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteCheckTitle">ATTENTION</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure you want to delete this project?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a rel="nofollow" data-method="delete" href="<%= project_path(project) %>" class="btn btn-success">Yes</a>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+
+                        <div class="modal fade" id="shareModal<%= project.id %>" tabindex="-1" role="dialog" aria-labelledby="shareModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="shareModalLabel">Share Project</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="recipient-name" class="col-form-label">Share with:</label>
+                                                <select class="form-control select2" id="select_user">
+                                                    <% @users.each do |user| %>
+                                                        <% if !user.projects.include?(project) %>
+                                                            <option value="<%= user.id %>"><%= user.username %></option>
+                                                        <% end %>
+                                                    <% end %>
+                                                </select>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" id="share_button">Share</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script>
+                            $('#share_button').click(function(){
+                                var user = $("#select_user").val();
+
+                                $.ajax({
+                                    url: "/shares",
+                                    type: "POST",
+                                    data: {user_id: user, project_id: <%= project.id %>, accepted: false}
+                                });
+
+                                $('#shareModal<%= project.id %>').modal('hide');
+                            });
+                        </script>
+                    <% end %>
+                <% end %>
             <% end %>
         </tbody>
     </table>
@@ -50,3 +102,7 @@
 <br><br>
 
 <a href="<%= new_project_path %>" class="btn btn-success">New Proyect</a>
+
+<script>
+    $('.select2').select2();
+</script>

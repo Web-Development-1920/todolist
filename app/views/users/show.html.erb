@@ -1,0 +1,58 @@
+<form>
+    <div style="text-align: center;">
+        <table class="table table-bordered table-striped grocery-crud-table table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Admin</th>
+                    <th>Projects</th>
+                    <th>Tasks</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><%= "#{@user.name} #{@user.surname}" %></td>
+                    <td><%= @user.username %></td>
+                    <td><%= @user.email %></td>
+                    <td><%= @user.admin %></td>
+                    <td>
+                        <% @user.projects.each do |project| %>
+                            <%= content_tag(:div, (link_to project.name, project_path(project))) %>
+                        <% end %>
+                    </td>
+                    <td>
+                        <% @user.tasks.each do |task| %>
+                            <%= content_tag(:div, (link_to task.name, task_path(task))) %>
+                        <% end %>
+                    </td>
+                    <td>
+                        <a href="<%= edit_user_path(@user) %>" class="btn btn-info">Edit</a>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal<%= @user.id %>">Delete</button>
+                    </td>
+                </tr>
+                <div class="modal fade" id="deleteModal<%= @user.id %>" tabindex="-1" role="dialog" aria-labelledby="deleteCheckTitle" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteCheckTitle">ATTENTION</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to delete this user?
+                            </div>
+                            <div class="modal-footer">
+                                <a rel="nofollow" data-method="delete" href="<%= user_path(@user) %>" class="btn btn-success">Yes</a>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tbody>
+        </table>
+    </div>
+</form>

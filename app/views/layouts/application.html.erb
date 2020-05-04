@@ -9,10 +9,13 @@
     <%= csp_meta_tag %>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/f492a899ad.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 </head>
 
 <body>
@@ -25,22 +28,82 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="ProjectsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Projects</a>
+                <button class="btn btn-secondary dropdown-toggle" id="ProjectsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:#383838;border:none">Projects</button>
                 <div class="dropdown-menu" aria-labelledby="ProjectsDropdown">
                     <a class="dropdown-item" href="<%= projects_path %>">Projects List</a>
                     <a class="dropdown-item" href="<%= new_project_path %>">New Project</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="TasksDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tasks</a>
+                <button class="btn btn-secondary dropdown-toggle" id="TasksDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:#383838;border:none">Tasks</button>
                 <div class="dropdown-menu" aria-labelledby="TasksDropdown">
                     <a class="dropdown-item" href="<%= tasks_path %>">Tasks List</a>
                     <a class="dropdown-item" href="<%= new_task_path %>">New Task</a>
                 </div>
             </li>
+
+            <% if current_user.try(:admin?) %>
+                <li>
+                    <a href="<%= users_path %>" class="btn btn-secondary" style="background-color:#383838;border:none">Users</a>
+                </li>
+            <% end %>
         </ul>
         <div class="my-2 my-lg-0">
             <% if user_signed_in? %>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bell"></i><span class="badge badge-danger"><%= find_notifications > 0 ? find_notifications : "" %></span></button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <% current_user.notifications.each do |notification| %>
+                            <% if !notification.share_id.nil? && !notification.read? %>
+                                <div id="notification<%= notification.id %>" class="btn-group">
+                                    <a class="dropdown-item"><%= notification.data %></a>
+                                    <button id="accept_button" class="btn btn-success">Accept</button>
+                                    <button id="decline_button" class="btn btn-danger">Decline</button>
+                                </div>
+                            <% elsif !notification.read? %>
+                                <div id="notification<%= notification.id %>" class="btn-group">
+                                    <a class="dropdown-item"><%= notification.data %></a>
+                                    <button id="read_button" class="btn btn-default"><i class="fas fa-times"></i></button>
+                                </div>
+                            <% end %>
+
+                            <script>
+                                function mark_as_read(){
+                                    $.ajax({
+                                        url: "/notifications/<%= notification.id %>",
+                                        type: "PATCH",
+                                        data: {read: true}
+                                    });
+
+                                    window.location.reload(true);
+                                };
+
+                                $('#read_button').click(function(){
+                                    mark_as_read();
+                                });
+
+                                $('#decline_button').click(function(){
+                                    $.ajax({
+                                        url: "/shares/<%= notification.share_id %>",
+                                        type: "DELETE"
+                                    });
+
+                                    mark_as_read();
+                                });
+
+                                $('#accept_button').click(function(){
+                                    $.ajax({
+                                        url: "/shares/<%= notification.share_id %>",
+                                        type: "PATCH",
+                                        data: {accepted: true}
+                                    });
+
+                                    mark_as_read();
+                                });
+                            </script>
+                        <% end %>
+                    </div>
+                </div>
                 <div class="btn-group">
                     <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My Account</button>
                     <div class="dropdown-menu">
@@ -61,4 +124,11 @@
     <%= yield %>
 </div>
 </body>
+<script>
+    $.ajaxSetup({
+    headers: {
+        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+    }
+    });
+</script>
 </html>

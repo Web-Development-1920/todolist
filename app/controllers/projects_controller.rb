@@ -3,9 +3,12 @@ class ProjectsController < ApplicationController
     before_action :find_project, only: [:show, :edit, :update, :destroy]
     before_action :find_tasks, only: [:new, :edit]
     before_action :find_task, only: [:create, :update]
+    before_action :find_users, only: [:index, :show]
+    before_action :find_shares, only: [:show, :update, :destroy]
 
     def index
         @projects = current_user.projects.all
+        @shares = current_user.shares.all
     end
 
     def show
@@ -19,12 +22,12 @@ class ProjectsController < ApplicationController
     end
 
     def create
-        @project = current_user.projects.new(project_params)
+        @project = Project.new(project_params)
         
         if @project.save
+            current_user.projects << @project
             assign_task
         else
-            # redirect_to new_project_path, :flash => {:error => @project.errors.full_messages.join(', ')}
             find_tasks
             render 'new'
         end
@@ -33,6 +36,13 @@ class ProjectsController < ApplicationController
     def update
         if @project.update(project_params)
             assign_task
+
+            @shares.each do |share|
+                if share.user_id != current_user.id
+                    @notification = Notification.new(:user_id => share.user_id, :data => current_user.username + " updated project " + @project.name)
+                    @notification.save
+                end
+            end
         else
             find_tasks
             render 'edit'
@@ -40,14 +50,29 @@ class ProjectsController < ApplicationController
     end
 
     def destroy
+        @shares.each do |share|
+            if share.user_id != current_user.id
+                @notification = Notification.new(:user_id => share.user_id, :data => current_user.username + " deleted project " + @project.name)
+                @notification.save
+            end
+        end
+
         @project.destroy
 
         redirect_to projects_path, notice: "Project deleted"
     end
 
     private
+        def find_users
+            @users = User.all
+        end
+
         def find_project
             @project = current_user.projects.find(params[:id]) or record_not_found
+        end
+
+        def find_shares
+            @shares = Share.where(project_id: @project.id, accepted: true)
         end
 
         def find_task

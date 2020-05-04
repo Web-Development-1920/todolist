@@ -10,15 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_31_103813) do
+ActiveRecord::Schema.define(version: 2020_05_04_085529) do
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "data"
+    t.boolean "read", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "share_id"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
 
   create_table "projects", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_projects_on_user_id"
+  end
+
+  create_table "shares", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "project_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "accepted", default: true
+    t.index ["project_id"], name: "index_shares_on_project_id"
+    t.index ["user_id"], name: "index_shares_on_user_id"
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -46,6 +64,7 @@ ActiveRecord::Schema.define(version: 2020_03_31_103813) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.boolean "admin", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
