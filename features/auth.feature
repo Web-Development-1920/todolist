@@ -3,7 +3,10 @@ Feature: Auth System and Users implementation
   Background:
     Given I create a "user" with the following data:
       | name      | surname       | username | email | password | password_confirmation |
-      | User1  | Surname1  | username1 | email1@gmail.com | password | password             |
+      | User1  | Surname1  | username1 | email1@gmail.com | P@ssw0rd | P@ssw0rd             |
+    And The following "user" exists:
+      | name      | surname       | username | email |
+      | User1  | Surname1  | username1 | email1@gmail.com |
 
   # AUTH SYSTEM
 
@@ -11,7 +14,7 @@ Feature: Auth System and Users implementation
     Given I go to "/users/sign_in"
 
     When I fill "user[email]" with "email1@gmail.com"
-    And I fill "user[password]" with "password"
+    And I fill "user[password]" with "P@ssw0rd"
     And I click on "Log In"
     Then  I am on "/"
     And I see "Sign Out"
@@ -50,7 +53,7 @@ Feature: Auth System and Users implementation
     And I fill "user[surname]" with "Surname2"
     And I fill "user[username]" with "username2"
     And I fill "user[email]" with "email2@gmail.com"
-    And I fill "user[password]" with "password"
+    And I fill "user[password]" with "P@ssw0rd"
     And I click on "Sign Up!"
     Then I am on "/"
     And I see "Sign Out"

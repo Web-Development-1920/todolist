@@ -3,10 +3,13 @@ Feature: Projects
   Background:
     Given I create a "user" with the following data:
       | name      | surname       | username | email | password | password_confirmation |
-      | User1  | Surname1  | username1 | email1@gmail.com | password | password             |
+      | User1  | Surname1  | username1 | email1@gmail.com | P@ssw0rd | P@ssw0rd             |
     And I create a "project" with the following data:
-      | name      | description       | user_id |
-      | Project1  | This is project1  | 1       |
+      | name      | description       |
+      | Project1  | This is project1  |
+    And I create a "share" with the following data:
+      | user_id      | project_id       |
+      | 1            | 1                |
     And I create a "task" with the following data:
       | name  | description   | priority  | done  | project_id  | user_id |
       | Task1 | This is task1 | 1         | False | 1           | 1       |
@@ -36,7 +39,9 @@ Feature: Projects
     And The following "task" exists:
       | name  | project_id |
       | Task3 | 2          |
-
+    And The following "share" exists:
+      | user_id  | project_id |
+      | 1        | 2          |
   Scenario: Create Project Failure
     Given I go to "/projects/new"
 
@@ -58,14 +63,23 @@ Feature: Projects
 
   Scenario: Read All Projects
     Given I create a "project" with the following data:
-      | name | description |  user_id |
-      | Project2 | This is project2 | 1 |
+      | name | description |
+      | Project2 | This is project2 |
+    And I create a "share" with the following data:
+      | user_id      | project_id       |
+      | 1            | 2                |
     And I create a "project" with the following data:
-      | name | description |  user_id |
-      | Project3 | This is project3 | 1 |
+      | name | description |
+      | Project3 | This is project3 |
+    And I create a "share" with the following data:
+      | user_id      | project_id       |
+      | 1            | 3                |
     And I create a "project" with the following data:
-      | name | description |  user_id |
-      | Project4 | This is project4 | 1 |
+      | name | description |
+      | Project4 | This is project4 |
+    And I create a "share" with the following data:
+      | user_id      | project_id       |
+      | 1            | 4                |
 
     And I go to "/projects"
 
@@ -101,3 +115,28 @@ Feature: Projects
     When I click on "Delete"
     And I click on "Yes"
     Then There is not "project" with "id" equal "1"
+
+
+    ########## Notifications & Shares
+
+  Scenario: Share a Project with another user
+    Given I create a "user" with the following data:
+      | name      | surname       | username | email | password | password_confirmation |
+      | User2  | Surname2  | username2 | email2@gmail.com | P@ssw0rd | P@ssw0rd             |
+    And I go to "/projects/1"
+    And I click on "Share"
+    And I choose "User2" from "select_user" selection
+    And I click on "share_button"
+
+    Then I go to "/projects/1"
+    And I see "User2"
+
+    And I sing out
+    And I sing in with "email2@gmail.com"
+    And I go to "/projects/1"
+    And I see "Project1"
+
+    And The following "notification" exists:
+      | user_id  | data |
+      | 2 | username1 shares a project with you |
+
