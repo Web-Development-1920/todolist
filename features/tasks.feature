@@ -3,7 +3,7 @@ Feature: Tasks
 	Background:
 		Given I create a "user" with the following data:
 			| name      | surname       | username | email | password | password_confirmation |
-			| User1  | Surname1  | username1 | email1@gmail.com | password | password             |
+			| User1  | Surname1  | username1 | email1@gmail.com | P@ssw0rd | P@ssw0rd             |
 		And I create a "task" with the following data:
 			| name | description | priority | done | user_id |
 			| Task1 | This is task1 | 1  | False | 1         |
