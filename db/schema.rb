@@ -10,15 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_02_180837) do
+ActiveRecord::Schema.define(version: 2020_05_04_085529) do
 
   create_table "notifications", force: :cascade do |t|
     t.integer "user_id"
     t.string "data"
     t.boolean "read", default: false
-    t.boolean "is_new_share", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "share_id"
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 

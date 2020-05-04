@@ -56,7 +56,7 @@
                                 <form>
                                     <div class="form-group">
                                         <label for="recipient-name" class="col-form-label">Share with:</label>
-                                        <select class="form-control select2" id="select_user">
+                                        <select class="form-control select2" id="select_user" name="select_user">
                                             <% @users.each do |user| %>
                                                 <% if !user.projects.include?(@project) %>
                                                     <option value="<%= user.id %>"><%= user.username %></option>
@@ -106,7 +106,7 @@
                                         Are you sure you want to revoke access to this project?
                                     </div>
                                     <div class="modal-footer">
-                                        <a rel="nofollow" data-method="delete" href="<%= share_path(@project) %>" class="btn btn-success">Yes</a>
+                                        <a rel="nofollow" data-method="delete" href="<%= share_path(share) %>" class="btn btn-success">Yes</a>
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
                                     </div>
                                 </div>

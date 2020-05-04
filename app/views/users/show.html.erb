@@ -20,7 +20,7 @@
                     <td><%= @user.admin %></td>
                     <td>
                         <% @user.projects.each do |project| %>
-                            <%= content_tag(:div, (link_to task.name, project_path(project))) %>
+                            <%= content_tag(:div, (link_to project.name, project_path(project))) %>
                         <% end %>
                     </td>
                     <td>

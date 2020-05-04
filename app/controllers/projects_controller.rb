@@ -4,10 +4,11 @@ class ProjectsController < ApplicationController
     before_action :find_tasks, only: [:new, :edit]
     before_action :find_task, only: [:create, :update]
     before_action :find_users, only: [:index, :show]
-    before_action :find_shares, only: [:show]
+    before_action :find_shares, only: [:show, :update, :destroy]
 
     def index
         @projects = current_user.projects.all
+        @shares = current_user.shares.all
     end
 
     def show
@@ -35,6 +36,13 @@ class ProjectsController < ApplicationController
     def update
         if @project.update(project_params)
             assign_task
+
+            @shares.each do |share|
+                if share.user_id != current_user.id
+                    @notification = Notification.new(:user_id => share.user_id, :data => current_user.username + " updated project " + @project.name)
+                    @notification.save
+                end
+            end
         else
             find_tasks
             render 'edit'
@@ -42,6 +50,13 @@ class ProjectsController < ApplicationController
     end
 
     def destroy
+        @shares.each do |share|
+            if share.user_id != current_user.id
+                @notification = Notification.new(:user_id => share.user_id, :data => current_user.username + " deleted project " + @project.name)
+                @notification.save
+            end
+        end
+
         @project.destroy
 
         redirect_to projects_path, notice: "Project deleted"

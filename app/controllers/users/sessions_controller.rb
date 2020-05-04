@@ -11,7 +11,6 @@ class Users::SessionsController < Devise::SessionsController
     # POST /resource/sign_in
     def create
         super
-        helpers.find_notifications
     end
 
     # DELETE /resource/sign_out

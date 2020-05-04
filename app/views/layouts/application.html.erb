@@ -51,10 +51,57 @@
         <div class="my-2 my-lg-0">
             <% if user_signed_in? %>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bell"></i><span class="badge badge-danger"><%= !@n_notifications.nil? && @n_notifications > 0 ? @n_notifications : "" %></span></button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
+                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bell"></i><span class="badge badge-danger"><%= find_notifications > 0 ? find_notifications : "" %></span></button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <% current_user.notifications.each do |notification| %>
+                            <% if !notification.share_id.nil? && !notification.read? %>
+                                <div id="notification<%= notification.id %>" class="btn-group">
+                                    <a class="dropdown-item"><%= notification.data %></a>
+                                    <button id="accept_button" class="btn btn-success">Accept</button>
+                                    <button id="decline_button" class="btn btn-danger">Decline</button>
+                                </div>
+                            <% elsif !notification.read? %>
+                                <div id="notification<%= notification.id %>" class="btn-group">
+                                    <a class="dropdown-item"><%= notification.data %></a>
+                                    <button id="read_button" class="btn btn-default"><i class="fas fa-times"></i></button>
+                                </div>
+                            <% end %>
+
+                            <script>
+                                function mark_as_read(){
+                                    $.ajax({
+                                        url: "/notifications/<%= notification.id %>",
+                                        type: "PATCH",
+                                        data: {read: true}
+                                    });
+
+                                    window.location.reload(true);
+                                };
+
+                                $('#read_button').click(function(){
+                                    mark_as_read();
+                                });
+
+                                $('#decline_button').click(function(){
+                                    $.ajax({
+                                        url: "/shares/<%= notification.share_id %>",
+                                        type: "DELETE"
+                                    });
+
+                                    mark_as_read();
+                                });
+
+                                $('#accept_button').click(function(){
+                                    $.ajax({
+                                        url: "/shares/<%= notification.share_id %>",
+                                        type: "PATCH",
+                                        data: {accepted: true}
+                                    });
+
+                                    mark_as_read();
+                                });
+                            </script>
+                        <% end %>
                     </div>
                 </div>
                 <div class="btn-group">
